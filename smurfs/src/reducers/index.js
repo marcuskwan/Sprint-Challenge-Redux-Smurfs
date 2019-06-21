@@ -10,7 +10,10 @@ import {
   ADDING_FAILURE,
   UPDATE_START,
   UPDATE_SUCCESS,
-  UPDATE_FAILURE
+  UPDATE_FAILURE,
+  DELETE_START,
+  DELETE_SUCCESS,
+  DELETE_FAILURE
 } from "../actions";
 
 /*
@@ -98,6 +101,28 @@ const rootReducer = (state = initialState, action) => {
         smurfs: action.payload
       };
     case UPDATE_FAILURE:
+      return {
+        ...state,
+        addingSmurf: false,
+        updatingSmurf: false,
+        error: action.payload
+      };
+    case DELETE_START:
+      return {
+        ...state,
+        addingSmurf: false,
+        updatingSmurf: false,
+        error: ""
+      };
+    case DELETE_SUCCESS:
+      return {
+        ...state,
+        addingSmurf: false,
+        updatingSmurf: false,
+        error: "",
+        smurfs: action.payload
+      };
+    case DELETE_FAILURE:
       return {
         ...state,
         addingSmurf: false,

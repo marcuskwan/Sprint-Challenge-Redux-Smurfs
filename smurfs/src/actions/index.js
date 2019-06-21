@@ -15,6 +15,11 @@ export const ADDING_FAILURE = "ADDING_FAILURE";
 export const UPDATE_START = "UPDATE_START";
 export const UPDATE_SUCCESS = "UPDATE_SUCCESS";
 export const UPDATE_FAILURE = "ADDING_FAILURE";
+
+// delete variable types
+export const DELETE_START = "DELETE_START";
+export const DELETE_SUCCESS = "DELETE_SUCCESS";
+export const DELETE_FAILURE = "DELETE_FAILURE";
 /*
   For this project you'll need at least 2 action creators for the main portion,
    and 2 more for the stretch problem.
@@ -69,5 +74,20 @@ export const updateSmurf = (id, updatingField) => dispatch => {
     .catch(error => {
       console.log("UPDATE ERROR: ", error);
       dispatch({ type: UPDATE_FAILURE, payload: error.response });
+    });
+};
+
+// building deleteSmurf functionality
+export const deleteSmurf = id => dispatch => {
+  dispatch({ type: DELETE_START });
+  axios
+    .delete(`http://localhost:3333/smurfs/${id}`)
+    .then(response => {
+      console.log("DELETE SUCCESS RESPONSE: ", response);
+      dispatch({ type: DELETE_SUCCESS, payload: response.data });
+    })
+    .catch(error => {
+      console.log("DELETE FAILURE ERROR ", error);
+      dispatch({ type: DELETE_FAILURE, payload: "Delete attempt failed" });
     });
 };
