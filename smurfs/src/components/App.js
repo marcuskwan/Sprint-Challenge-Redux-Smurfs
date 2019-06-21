@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 // import action creators
 import { getSmurfs, addNewSmurf } from "../actions";
 // import withRouter
+
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own. 
@@ -53,6 +54,7 @@ class App extends Component {
           />
           <button>Add New Friend</button>
         </form>
+        {this.props.error && <div>{this.props.error}</div>}
       </div>
     );
   }
@@ -67,13 +69,19 @@ class App extends Component {
       height: this.state.height
     };
     this.props.addNewSmurf(newSmurf);
+    this.setState({
+      name: "",
+      age: "",
+      height: ""
+    });
   };
 }
 
 const mapStateToProps = state => {
   // console.log("inside mstp 1", state);
   return {
-    smurfsArray: state.smurfs
+    smurfsArray: state.smurfs,
+    error: state.error
   };
 };
 
