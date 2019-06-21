@@ -21,7 +21,7 @@ const initialState = {
   addingSmurf: false,
   updatingSmurf: false,
   deletingSmurf: false,
-  error: null
+  error: ''
 };
 
 /*
@@ -32,28 +32,30 @@ const initialState = {
   Components can then read your store as, `state` and not `state.fooReducer`.
 */
 
-export const rootReducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case IS_FETCHING:
       return {
         ...state,
         fetchingSmurfs: true,
-        error: null
+        error: ''
       };
     case FETCHING_SUCCESS:
       return {
         ...state,
         fetchingSmurfs: false,
-        error: null,
+        error: '',
         smurfs: action.payload
       };
     case FETCHING_FAILURE:
       return {
         ...state,
         fetchingSmurfs: false,
-        error: true
+        error: 'error'
       };
     default:
       return state;
   }
 };
+
+export default rootReducer;
