@@ -3,7 +3,7 @@ import "./App.css";
 // import connect method
 import { connect } from "react-redux";
 // import action creators
-import { getSmurfs, addNewSmurf } from "../actions";
+import { getSmurfs, addNewSmurf, updateSmurf } from "../actions";
 // import withRouter
 
 /*
@@ -31,6 +31,9 @@ class App extends Component {
             <div>{smurfObject.age}</div>
             <div>{smurfObject.height}</div>
             <div>{smurfObject.id}</div>
+            <button onClick={event => this.handleUpdate(event, smurfObject.id)}>
+              Update Smurf
+            </button>
           </div>
         ))}
         <form onSubmit={this.addNewSmurfSubmitHandler}>
@@ -75,6 +78,14 @@ class App extends Component {
       height: ""
     });
   };
+  handleUpdate = (event, smurfObjectId) => {
+    event.preventDefault();
+    this.props.updateSmurf(smurfObjectId, {
+      name: this.state.name,
+      age: this.state.age,
+      height: this.state.height
+    });
+  };
 }
 
 const mapStateToProps = state => {
@@ -87,5 +98,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getSmurfs, addNewSmurf }
+  { getSmurfs, addNewSmurf, updateSmurf }
 )(App);

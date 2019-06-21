@@ -11,7 +11,10 @@ export const FETCHING_FAILURE = "FETCHING_FAILURE";
 export const ADDING_START = "ADDING_START";
 export const ADDING_SUCCESS = "ADDING_SUCCESS";
 export const ADDING_FAILURE = "ADDING_FAILURE";
-
+// updating variable types
+export const UPDATE_START = "UPDATE_START";
+export const UPDATE_SUCCESS = "UPDATE_SUCCESS";
+export const UPDATE_FAILURE = "ADDING_FAILURE";
 /*
   For this project you'll need at least 2 action creators for the main portion,
    and 2 more for the stretch problem.
@@ -34,7 +37,7 @@ export const getSmurfs = () => dispatch => {
     })
     .catch(err => {
       console.log("FETCHING FAILURE ERROR: ", err); // haven't gotten an error
-      dispatch({ type: FETCHING_FAILURE, payload: "fetching smurf failed" });
+      dispatch({ type: FETCHING_FAILURE, payload: "fetching smurfs failed" });
     });
 };
 
@@ -51,5 +54,20 @@ export const addNewSmurf = newSmurf => dispatch => {
     .catch(err => {
       console.log("ADDING FAILURE ERROR: ", err); // haven't gotten an error
       dispatch({ type: ADDING_FAILURE, payload: "adding a smurf failed" });
+    });
+};
+
+// building put updateSmurf actioncreator
+export const updateSmurf = (id, updatingField) => dispatch => {
+  dispatch({ type: UPDATE_START });
+  axios
+    .put(`http://localhost:3333/smurfs/${id}`, updatingField)
+    .then(response => {
+      console.log("UPDATE SUCCESS RESPONSE: ", response);
+      dispatch({ type: UPDATE_SUCCESS, payload: response.data });
+    })
+    .catch(error => {
+      console.log("UPDATE ERROR: ", error);
+      dispatch({ type: UPDATE_FAILURE, payload: error.response });
     });
 };

@@ -7,7 +7,10 @@ import {
   FETCHING_FAILURE,
   ADDING_START,
   ADDING_SUCCESS,
-  ADDING_FAILURE
+  ADDING_FAILURE,
+  UPDATE_START,
+  UPDATE_SUCCESS,
+  UPDATE_FAILURE
 } from "../actions";
 
 /*
@@ -70,13 +73,35 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         addingSmurf: false,
-        smurfs: action.payload,
-        error: ""
+        error: "",
+        smurfs: action.payload
       };
     case ADDING_FAILURE:
       return {
         ...state,
         addingSmurf: true,
+        error: action.payload
+      };
+    case UPDATE_START:
+      return {
+        ...state,
+        addingSmurf: false,
+        updatingSmurf: true,
+        error: ""
+      };
+    case UPDATE_SUCCESS:
+      return {
+        ...state,
+        addingSmurf: false,
+        updatingSmurf: false,
+        error: "",
+        smurfs: action.payload
+      };
+    case UPDATE_FAILURE:
+      return {
+        ...state,
+        addingSmurf: false,
+        updatingSmurf: false,
         error: action.payload
       };
     default:
